@@ -3,6 +3,7 @@ import docx2txt, glob
 import requests
 from bs4 import BeautifulSoup
 from langchain_google_genai import ChatGoogleGenerativeAI
+import traceback
 
 
 def create_mailto(to, role, companyname, resp):
@@ -28,9 +29,14 @@ def get_jd(jd_link):
 
 
 def get_resume(url):
-    os.system(f"gdown {url.split('/')[-2]}")
-    with open(glob.glob("*.docx")[0], "rb") as infile:
-        return docx2txt.process(infile)
+    try:
+        os.system(f"gdown {url.split('/')[-2]}")
+        with open(glob.glob("*.docx")[0], "rb") as infile:
+            return docx2txt.process(infile)
+    except Exception as e:
+        traceback.print_exec()
+        print(e)
+        return ""
 
 
 def get(q):
