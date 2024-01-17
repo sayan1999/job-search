@@ -5,9 +5,6 @@ import streamlit as st
 from utils import get_jd, get_resume, get, create_mailto
 
 
-RESUME_URL = "https://docs.google.com/document/d/1DEzxF0QiqXEyN63EkNvczGZQo8m2vYjD7oFuTBG5tc0/edit?usp=sharing"
-
-
 def common_ui(jb_type):
     col1, col2, col3, col4 = st.columns(4)
     recruiter = col1.text_input("Recruiter name")
@@ -20,9 +17,11 @@ def common_ui(jb_type):
 def jd_resume():
     col1, col2 = st.columns(2)
     with col1:
+        resume_url = st.text_input("Resume google drive url", RESUME_URL)
+        st.markdown("OR")
         skills = (
             "\n\nThis is My Resume:\n"
-            + st.text_area("Resume", get_resume(RESUME_URL), height=600)
+            + st.text_area("Resume", get_resume(resume_url), height=600)
             + "\n" * 3
         )
     with col2:
@@ -122,6 +121,7 @@ if __name__ == "__main__":
     st.set_page_config(layout="wide", page_title="Job Apply")
     st.title("JOB SEARCH")
     load_dotenv()
+    RESUME_URL = os.environ.get("RESUME", "")
     key = st.session_state.get("GOOGLE_API_KEY", "") or os.environ.get("GOOGLE_API_KEY")
     if not key:
         with st.empty():
