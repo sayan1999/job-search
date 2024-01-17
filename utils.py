@@ -34,7 +34,7 @@ def get_resume(url):
         with open(glob.glob("*.docx")[0], "rb") as infile:
             return docx2txt.process(infile)
     except Exception as e:
-        traceback.print_exec()
+        traceback.print_exc()
         print(e)
         return ""
 
