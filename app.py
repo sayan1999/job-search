@@ -119,7 +119,7 @@ def main():
 
 if __name__ == "__main__":
     st.set_page_config(layout="wide", page_title="Job Apply")
-    st.title("JOB SEARCH")
+    st.title("CoverCraft: AI-powered Cover Letters & Referrals")
     load_dotenv()
     RESUME_URL = os.environ.get("RESUME", "")
     key = st.session_state.get("GOOGLE_API_KEY", "") or os.environ.get("GOOGLE_API_KEY")
